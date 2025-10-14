@@ -1,0 +1,15 @@
+[build]
+  # No hay comando de build porque es HTML estático
+  command = ""
+  
+  # Publicar desde la raíz
+  publish = "."
+  
+  # Ignorar la carpeta server
+  ignore = "server/"
+
+# Configuración de redirecciones para SPA
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

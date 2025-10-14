@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test API - MDC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px 5px;
+            cursor: pointer;
+            background: #4a9eff;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #357abd;
+        }
+        #result {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .success {
+            color: #4ade80;
+        }
+        .error {
+            color: #ff6b6b;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test de API - MDC Database</h1>
+    <p>Usa estos botones para probar la conexión con el servidor:</p>
+    
+    <div>
+        <button onclick="testHealth()">✅ Test Health</button>
+        <button onclick="getAllFichas()">📋 Ver todas las fichas</button>
+        <button onclick="createTestFicha()">➕ Crear ficha de prueba</button>
+        <button onclick="clearResult()">🗑️ Limpiar</button>
+    </div>
+    
+    <div id="result"></div>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+        const resultDiv = document.getElementById('result');
+
+        function clearResult() {
+            resultDiv.innerHTML = '';
+        }
+
+        async function testHealth() {
+            resultDiv.innerHTML = '⏳ Probando conexión...';
+            try {
+                const response = await fetch(`${API_URL}/health`);
+                const data = await response.json();
+                resultDiv.innerHTML = '<span class="success">✅ Servidor funcionando correctamente</span>\n\n' + JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultDiv.innerHTML = '<span class="error">❌ Error: ' + error.message + '</span>\n\n¿El servidor está corriendo?';
+            }
+        }
+
+        async function getAllFichas() {
+            resultDiv.innerHTML = '⏳ Obteniendo fichas...';
+            try {
+                const response = await fetch(`${API_URL}/fichas`);
+                const data = await response.json();
+                resultDiv.innerHTML = '<span class="success">✅ Fichas obtenidas: ' + data.count + '</span>\n\n' + JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultDiv.innerHTML = '<span class="error">❌ Error: ' + error.message + '</span>';
+            }
+        }
+
+        async function createTestFicha() {
+            resultDiv.innerHTML = '⏳ Creando ficha de prueba...';
+            
+            const testData = {
+                nombre: "Prueba",
+                apellido: "Test",
+                identificacion: "TEST" + Date.now(),
+                telefono: "555-" + Math.floor(Math.random() * 9999),
+                edad: 30,
+                genero: "masculino",
+                residencia: "Los Santos",
+                raza: "hispano",
+                imageUrl: ""
+            };
+            
+            try {
+                const response = await fetch(`${API_URL}/fichas`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(testData)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultDiv.innerHTML = '<span class="success">✅ Ficha creada exitosamente!</span>\n\n' + JSON.stringify(data, null, 2);
+                } else {
+                    resultDiv.innerHTML = '<span class="error">❌ Error: ' + data.message + '</span>\n\n' + JSON.stringify(data, null, 2);
+                }
+            } catch (error) {
+                resultDiv.innerHTML = '<span class="error">❌ Error: ' + error.message + '</span>\n\nAsegúrate de que el servidor esté corriendo en http://localhost:3000';
+            }
+        }
+    </script>
+</body>
+</html>

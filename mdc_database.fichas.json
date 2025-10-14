@@ -1,0 +1,20 @@
+[{
+  "_id": {
+    "$oid": "68e45ec6e90bdb3829fc0e6c"
+  },
+  "nombre": "sd",
+  "apellido": "23",
+  "identificacion": "42",
+  "telefono": "4232",
+  "edad": 23,
+  "genero": "masculino",
+  "residencia": "dsd",
+  "raza": "blanco",
+  "fechaCreacion": {
+    "$date": "2025-10-07T00:28:54.182Z"
+  },
+  "fechaActualizacion": {
+    "$date": "2025-10-07T00:28:54.187Z"
+  },
+  "__v": 0
+}]
