@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+/* Globales mínimos */
+html, body, #root {
+  height: 100%;
+}
+
+/* Evitar @apply aquí para Tailwind v4; usar clases en el JSX */
