@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 3000;
 const corsOptions = {
   origin: [
     'https://mdc-usmarshals-test-h6v8ticev-ferlokos-projects.vercel.app',
+    'https://mdc-usmarshals-test-dwcnbgkoy-ferlokos-projects.vercel.app',
     'http://localhost:3000',
     'http://localhost:3001',
     'https://tu-backend.onrender.com' // Temporal para compatibilidad
