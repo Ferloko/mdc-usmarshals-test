@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDC U.S. Marshals Service</title>
+            <link rel="stylesheet" href="styles.css">
+    <script src="config.js"></script>
+</head>
+<body>
+    <!-- Main Screen -->
+    <div class="desktop-screen">
+        <div class="logo-container">
+            <img src="Logo_USMS.png" alt="MDC U.S. Marshals Service" class="main-logo">
+        </div>
+        
+        <!-- Start Menu -->
+        <div class="start-menu" id="startMenu">
+            <div class="start-menu-header">
+                <button class="menu-btn" id="menuBtn">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div class="header-content">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Inicio</span>
+                </div>
+            </div>
+            <div class="start-menu-content">
+                <div class="start-menu-layout">
+                    <div class="start-menu-left">
+                        <h4>Más usados</h4>
+                        <div class="menu-item-large">
+                            <div class="menu-icon">
+                                <i class="bi bi-file-earmark-plus"></i>
+                            </div>
+                            <span>Añadir ficha gubernamental</span>
+                        </div>
+                        <div class="menu-item-large">
+                            <div class="menu-icon">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </div>
+                            <span>Buscar ficha gubernamental</span>
+                        </div>
+                        <div class="menu-item-large">
+                            <div class="menu-icon">
+                                <i class="fa-solid fa-handcuffs"></i>
+                            </div>
+                            <span>Crear reporte de arresto</span>
+                        </div>
+                        <div class="menu-item-large">
+                            <div class="menu-icon">
+                                <i class="fa-solid fa-eye"></i>
+                            </div>
+                            <span>Crear ByC</span>
+                        </div>
+                        <div class="menu-item-large">
+                            <div class="menu-icon">
+                                <i class="fa-solid fa-search-location"></i>
+                            </div>
+                            <span>Crear BOLO</span>
+                        </div>
+                    </div>
+                    <div class="start-menu-right">
+                        <h4>Accesos directos</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Search Panel -->
+        <div class="search-panel" id="searchPanel">
+            <div class="search-header">
+                <input type="text" placeholder="Buscar aplicaciones, archivos..." id="searchInput">
+                <button class="close-btn" id="closeSearch">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+            <div class="search-results">
+                <div class="search-category">
+                    <h4>Aplicaciones</h4>
+                    <div class="search-item">
+                        <i class="bi bi-file-text"></i>
+                        <span>Crear ficha</span>
+                    </div>
+                    <div class="search-item">
+                        <i class="bi bi-scissors"></i>
+                        <span>Crear reporte de arresto</span>
+                    </div>
+                    <div class="search-item">
+                        <i class="bi bi-layout-text-window-reverse"></i>
+                        <span>Crear ByC</span>
+                    </div>
+                    <div class="search-item">
+                        <i class="fa-solid fa-bullhorn"></i>
+                        <span>Crear BOLO</span>
+                    </div>
+                </div>
+                <div class="search-category">
+                    <h4>BOLOs Activos</h4>
+                    <div id="activeBolosList">
+                        <p class="no-bolos">Cargando BOLOs activos...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Form Modal -->
+        <div class="form-modal" id="formModal">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Agregar ficha gubernamental</h2>
+                    <button class="close-btn" id="closeFormModal">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                </div>
+                <form id="governmentForm" class="government-form">
+                    <div class="form-section">
+                        <h3>Información básica</h3>
+                        <div class="form-row form-row-4">
+                            <div class="form-group">
+                                <label for="nombre">Nombre</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-user"></i>
+                                    <input type="text" id="nombre" name="nombre" placeholder="Nombre" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="apellido">Apellido</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-user"></i>
+                                    <input type="text" id="apellido" name="apellido" placeholder="Apellido" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="identificacion">Identificación (Sin #)</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-id-card"></i>
+                                    <input type="text" id="identificacion" name="identificacion" placeholder="Identificación" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="telefono">Número de teléfono</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-phone"></i>
+                                    <input type="tel" id="telefono" name="telefono" placeholder="Teléfono" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>Información demográfica</h3>
+                        <div class="form-row form-row-4">
+                            <div class="form-group">
+                                <label for="edad">Edad</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-user"></i>
+                                    <input type="number" id="edad" name="edad" placeholder="Edad" required min="0" max="150">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="genero">Género</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-venus-mars"></i>
+                                    <select id="genero" name="genero" required>
+                                        <option value="">Selecciona género</option>
+                                        <option value="masculino">Masculino</option>
+                                        <option value="femenino">Femenino</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="residencia">Residencia</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-house"></i>
+                                    <input type="text" id="residencia" name="residencia" placeholder="Residencia" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="raza">Raza</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-user"></i>
+                                    <select id="raza" name="raza" required>
+                                        <option value="">Selecciona raza</option>
+                                        <option value="caucasico">Caucasico</option>
+                                        <option value="afroamericano">Afroamericano</option>
+                                        <option value="asiatico">Asiático</option>
+                                        <option value="hispano">Hispano</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Enviar</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Arrest Report Modal -->
+        <div class="form-modal" id="arrestModal">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Reporte de arresto</h2>
+                    <button class="close-btn" id="closeArrestModal">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                </div>
+                <form id="arrestForm" class="government-form">
+                    <div class="form-section">
+                        <h3>Sección de información</h3>
+                        <div class="form-row form-row-3">
+                            <div class="form-group">
+                                <label for="fechaArresto">Fecha</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-calendar"></i>
+                                    <input type="date" id="fechaArresto" name="fechaArresto" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="horaArresto">Tiempo</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-clock"></i>
+                                    <input type="time" id="horaArresto" name="horaArresto" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="callsign">Callsign</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-radio"></i>
+                                    <input type="text" id="callsign" name="callsign" placeholder="2-ADAM-10" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row form-row-3">
+                            <div class="form-group">
+                                <label for="oficialNombre">Nombre</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-user"></i>
+                                    <input type="text" id="oficialNombre" name="oficialNombre" placeholder="" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="rango">Rango</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                    <select id="rango" name="rango" required>
+                                        <option value="">Selecciona</option>
+                                        <option value="Basic Deputy U.S. Marshal">Basic Deputy U.S. Marshal</option>
+                                        <option value="Deputy U.S. Marshal">Deputy U.S. Marshal I</option>
+                                        <option value="Deputy U.S. Marshal">Deputy U.S. Marshal II</option>
+                                        <option value="Deputy U.S. Marshal">Deputy U.S. Marshal III</option>
+                                        <option value="Deputy U.S. Marshal">Deputy U.S. Marshal IV</option>
+                                        <option value="Supervisory Deputy U.S. Marshal">Supervisory Deputy U.S. Marshal</option>
+                                        <option value="Chief Deputy U.S. Marshal">Chief Deputy U.S. Marshal</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="oficialPlaca">Placa</label>
+                                <div class="placa-input-group">
+                                    <div class="input-with-icon">
+                                        <i class="fa-solid fa-badge"></i>
+                                        <input type="text" id="oficialPlaca" name="oficialPlaca" placeholder="#####" required>
+                                    </div>
+                                    <button type="button" class="add-officer-btn" id="addOfficerBtn" title="Agregar otro agente">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="additionalOfficers" class="additional-officers">
+                            <!-- Additional officers will be added here -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>Sección de arrestos</h3>
+                        <div class="form-row form-row-3">
+                            <div class="form-group">
+                                <label for="arrestNombre">Nombre del sospechoso</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-user"></i>
+                                    <input type="text" id="arrestNombre" name="nombre" placeholder="Nombre" required>
+                                </div>
+                                <div class="autocomplete-dropdown" id="arrestNombreDropdown"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="arrestIdentificacion">Identificación del sospechoso (Sin #)</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-id-card"></i>
+                                    <input type="text" id="arrestIdentificacion" name="identificacion" placeholder="" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cargosSelect">Cargos</label>
+                                <div class="multi-select-container">
+                                    <div class="multi-select-input" id="cargosSelectInput">
+                                        <span class="multi-select-placeholder">Selecciona cargos</span>
+                                        <i class="fa-solid fa-chevron-down multi-select-arrow"></i>
+                                    </div>
+                                    <div class="multi-select-dropdown" id="cargosDropdown">
+                                        <div class="multi-select-search">
+                                            <input type="text" placeholder="Buscar cargo..." id="cargoSearchInput">
+                                        </div>
+                                        <div class="multi-select-options" id="cargosOptions">
+                                            <!-- Los cargos se cargarán dinámicamente -->
+                                        </div>
+                                    </div>
+                                    <div class="selected-cargos" id="selectedCargos">
+                                        <!-- Los cargos seleccionados aparecerán aquí -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <label for="descripcionIncidente">Narrativa de Arresto</label>
+                                <textarea id="descripcionIncidente" name="descripcion" placeholder="Narrativa de Arresto" required rows="6" style="padding: 12px; background: rgba(20, 35, 55, 0.6); border: 1px solid rgba(100, 150, 200, 0.3); border-radius: 4px; color: #ffffff; font-size: 14px; width: 100%; resize: vertical; font-family: inherit;"></textarea>
+                                <small style="color: rgba(255, 255, 255, 0.6); font-size: 12px; margin-top: 5px; display: block;">
+                                    Describe los eventos que condujeron al arresto en tercera persona y en orden cronológico, explicando todos los cargos.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>Sección de evidencias</h3>
+                        <div class="form-row">
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <label for="ubicacionArresto">Ubicación del arresto</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-map-marker-alt"></i>
+                                    <input type="text" id="ubicacionArresto" name="ubicacion" placeholder="Mirror Park, Los Santos" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <label for="soporteEvidencia">Soporte de evidencia</label>
+                                <textarea id="soporteEvidencia" name="soporteEvidencia" placeholder="Videos, fotos, audios, escrituras, mensajes, toda la evidencia posible." rows="4" style="padding: 12px; background: rgba(20, 35, 55, 0.6); border: 1px solid rgba(100, 150, 200, 0.3); border-radius: 4px; color: #ffffff; font-size: 14px; width: 100%; resize: vertical; font-family: inherit;"></textarea>
+                                <small style="color: rgba(255, 255, 255, 0.6); font-size: 12px; margin-top: 5px; display: block;">
+                                    Proporcionar evidencia de apoyo para ayudar al informe de arresto.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fa-solid fa-handcuffs"></i>
+                        <span>Crear reporte de arresto</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- ByC Modal -->
+        <div class="form-modal" id="bycModal">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Generar búsqueda y captura</h2>
+                    <button class="close-btn" id="closeByCModal">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                </div>
+                <form id="bycForm" class="government-form">
+                    <div class="form-section">
+                        <h3>Sospechoso</h3>
+                        <div class="form-row form-row-2">
+                            <div class="form-group">
+                                <label for="bycNombreCompleto">Nombre Apellido</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-user"></i>
+                                    <input type="text" id="bycNombreCompleto" name="nombreCompleto" placeholder="Nombre Apellido" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="bycIdentificacion">Identificación</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-id-card"></i>
+                                    <input type="text" id="bycIdentificacion" name="identificacion" placeholder="Identificación" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>Información</h3>
+                        <div class="form-row">
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <label for="bycDescripcionHechos">Descripción de los hechos</label>
+                                <div class="input-with-icon">
+                                    <textarea id="bycDescripcionHechos" name="descripcionHechos" placeholder="Describe los hechos relevantes..." rows="5" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn byc-submit">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Generar</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- BOLO Modal -->
+        <div class="form-modal" id="boloModal">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2><i class="fa-solid fa-bullhorn"></i> Agregar BOLO</h2>
+                    <button class="close-btn" id="closeBoloModal">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                </div>
+                <form id="boloForm">
+                    <div class="form-section">
+                        <h3><i class="fa-solid fa-info-circle"></i> Información del Incidente</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="boloFecha">Fecha *</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-calendar"></i>
+                                    <input type="date" id="boloFecha" name="fecha" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="boloTiempo">Hora *</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-clock"></i>
+                                    <input type="time" id="boloTiempo" name="tiempo" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="boloCallsign">Callsign/Radio *</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-phone"></i>
+                                    <input type="text" id="boloCallsign" name="callsign" placeholder="Ej: 1-Adam-12" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fa-solid fa-user"></i> Información del Sujeto</h3>
+                        <div class="form-row form-row-4">
+                            <div class="form-group">
+                                <label for="boloTipo">Tipo de BOLO *</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-tag"></i>
+                                    <select id="boloTipo" name="tipo" required>
+                                        <option value="">Seleccionar tipo</option>
+                                        <option value="Persona">Persona</option>
+                                        <option value="Vehículo">Vehículo</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="boloGenero">Género</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-venus-mars"></i>
+                                    <select id="boloGenero" name="genero">
+                                        <option value="">Selecciona género</option>
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Femenino">Femenino</option>
+                                        <option value="Otro">Otro</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="boloRaza">Raza/Etnia</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-users"></i>
+                                    <select id="boloRaza" name="raza">
+                                        <option value="">Selecciona raza</option>
+                                        <option value="Caucásico">Caucásico</option>
+                                        <option value="Afroamericano">Afroamericano</option>
+                                        <option value="Hispano">Hispano</option>
+                                        <option value="Asiático">Asiático</option>
+                                        <option value="Otro">Otro</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="boloUbicacion">Última ubicación *</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-map-marker-alt"></i>
+                                    <input type="text" id="boloUbicacion" name="ubicacion" placeholder="Ciudad, dirección o zona específica" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fa-solid fa-file-text"></i> Descripción Detallada</h3>
+                        <div class="form-group">
+                            <label for="boloDescripcion">Descripción del BOLO *</label>
+                            <div class="input-with-icon">
+                                <textarea id="boloDescripcion" name="descripcion" rows="4" placeholder="Describe las características físicas, comportamiento, detalles del vehículo, razón del BOLO, etc." required></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fa-solid fa-user-shield"></i> Información del Oficial</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="boloOficialNombre">Nombre del oficial *</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-user"></i>
+                                    <input type="text" id="boloOficialNombre" name="oficialNombre" placeholder="Nombre completo del oficial" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="boloOficialPlaca">Número de placa *</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-badge"></i>
+                                    <input type="text" id="boloOficialPlaca" name="oficialPlaca" placeholder="Número de placa" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="submit-btn">
+                            <i class="fa-solid fa-bullhorn"></i>
+                            <span>Crear BOLO</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- BOLOs Activos Modal -->
+        <div class="form-modal" id="bolosActivosModal">
+            <div class="form-container" style="max-width: 1000px; max-height: 80vh;">
+                <div class="form-header">
+                    <h2>BOLOs Activos</h2>
+                    <button class="close-btn" id="closeBolosActivosModal">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                </div>
+                <div class="bolos-activos-content">
+                    <div class="bolos-stats">
+                        <div class="stat-item">
+                            <i class="fa-solid fa-bullhorn"></i>
+                            <span id="totalBolos">0</span>
+                            <label>Total BOLOs</label>
+                        </div>
+                        <div class="stat-item urgent">
+                            <i class="fa-solid fa-exclamation-triangle"></i>
+                            <span id="bolosUrgentes">0</span>
+                            <label>Urgentes</label>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fa-solid fa-clock"></i>
+                            <span id="bolosProximos">0</span>
+                            <label>Próximos</label>
+                        </div>
+                    </div>
+                    <div class="bolos-filters">
+                        <select id="boloFilterTipo">
+                            <option value="">Todos los tipos</option>
+                            <option value="Persona">Persona</option>
+                            <option value="Vehículo">Vehículo</option>
+                        </select>
+                        <button id="refreshBolos" class="refresh-btn">
+                            <i class="fa-solid fa-rotate"></i>
+                            Actualizar
+                        </button>
+                    </div>
+                    <div id="bolosActivosList" class="bolos-table-container">
+                        <div class="bolos-table">
+                            <div class="bolos-table-header">
+                                <div class="bolos-table-cell">Tiempo restante</div>
+                                <div class="bolos-table-cell">Tipo</div>
+                                <div class="bolos-table-cell">Descripción</div>
+                                <div class="bolos-table-cell">Acciones</div>
+                            </div>
+                            <div class="bolos-table-body">
+                                <div class="loading-bolos">
+                                    <i class="fa-solid fa-spinner fa-spin"></i>
+                                    <span>Cargando BOLOs activos...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Anotaciones Modal -->
+        <div class="form-modal" id="anotacionModal">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Crear Anotación</h2>
+                    <button class="close-btn" id="closeAnotacionModal">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                </div>
+                <form id="anotacionForm" class="government-form">
+                    <div class="form-section">
+                        <h3>Información de la persona</h3>
+                        <div class="form-row form-row-4">
+                            <div class="form-group">
+                                <label for="anotacionNombre">Nombre</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-user"></i>
+                                    <input type="text" id="anotacionNombre" name="nombre" placeholder="Nombre" required readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="anotacionApellido">Apellido</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-user"></i>
+                                    <input type="text" id="anotacionApellido" name="apellido" placeholder="Apellido" required readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="anotacionIdentificacion">Identificación</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-id-card"></i>
+                                    <input type="text" id="anotacionIdentificacion" name="identificacion" placeholder="Identificación" required readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>Detalles de la anotación</h3>
+                        <div class="form-row form-row-4">
+                            <div class="form-group">
+                                <label for="anotacionTitulo">Título</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-heading"></i>
+                                    <input type="text" id="anotacionTitulo" name="titulo" placeholder="Título de la anotación" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="anotacionCategoria">Categoría</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-tags"></i>
+                                    <select id="anotacionCategoria" name="categoria" required>
+                                        <option value="">Selecciona categoría</option>
+                                        <option value="General">General</option>
+                                        <option value="Comportamiento">Comportamiento</option>
+                                        <option value="Antecedentes">Antecedentes</option>
+                                        <option value="Observaciones">Observaciones</option>
+                                        <option value="Alertas">Alertas</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <label for="anotacionContenido">Contenido</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-file-text"></i>
+                                    <textarea id="anotacionContenido" name="contenido" placeholder="Escribe el contenido de la anotación..." required rows="6"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>Información del oficial</h3>
+                        <div class="form-row form-row-4">
+                            <div class="form-group">
+                                <label for="anotacionOficialNombre">Nombre del oficial</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-shield-alt"></i>
+                                    <input type="text" id="anotacionOficialNombre" name="oficialNombre" placeholder="Nombre del oficial" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="anotacionOficialPlaca">Número de placa</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-badge"></i>
+                                    <input type="text" id="anotacionOficialPlaca" name="oficialPlaca" placeholder="Número de placa" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="anotacionDepartamento">Departamento</label>
+                                <div class="input-with-icon">
+                                    <i class="fa-solid fa-building"></i>
+                                    <select id="anotacionDepartamento" name="departamento" required>
+                                        <option value="">Selecciona departamento</option>
+                                        <option value="LSPD">LSPD</option>
+                                        <option value="BCSO">BCSO</option>
+                                        <option value="SAHP">SAHP</option>
+                                        <option value="USMS">USMS</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fa-solid fa-sticky-note"></i>
+                        <span>Crear Anotación</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Arrest Detail Modal -->
+        <div class="form-modal" id="arrestDetailModal">
+            <div class="form-container" style="max-width: 800px;">
+                <div class="form-header">
+                    <h2>Detalle del Reporte de Arresto</h2>
+                    <button class="close-btn" id="closeArrestDetailModal">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                </div>
+                <div class="arrest-detail-content" id="arrestDetailContent">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- ByC Detail Modal -->
+        <div class="form-modal" id="bycDetailModal">
+            <div class="form-container" style="max-width: 800px;">
+                <div class="form-header">
+                    <h2>Detalle de Búsqueda y Captura</h2>
+                    <button class="close-btn" id="closeBycDetailModal">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                </div>
+                <div class="byc-detail-content" id="bycDetailContent">
+                    <!-- Content will be loaded dynamically -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Código Penal Modal -->
+        <div class="form-modal" id="codigoPenalModal">
+            <div class="form-container" style="max-width: 1200px; max-height: 80vh;">
+                <div class="form-header">
+                    <h2><i class="bi bi-book"></i> Código Penal</h2>
+                    <button class="close-btn" id="closeCodigoPenalModal">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                </div>
+                <div class="codigo-penal-layout">
+                    <div class="codigo-penal-sidebar">
+                        <div class="sidebar-item active" data-articulo="1">
+                            <span class="sidebar-number">1</span>
+                            <span class="sidebar-text">Delitos de Tránsito</span>
+                        </div>
+                        <div class="sidebar-item" data-articulo="2">
+                            <span class="sidebar-number">2</span>
+                            <span class="sidebar-text">Patrimonio</span>
+                        </div>
+                        <div class="sidebar-item" data-articulo="3">
+                            <span class="sidebar-number">3</span>
+                            <span class="sidebar-text">Orden Público</span>
+                        </div>
+                        <div class="sidebar-item" data-articulo="4">
+                            <span class="sidebar-number">4</span>
+                            <span class="sidebar-text">Vida y Libertad</span>
+                        </div>
+                        <div class="sidebar-item" data-articulo="5">
+                            <span class="sidebar-number">5</span>
+                            <span class="sidebar-text">Convivencia Civil</span>
+                        </div>
+                        <div class="sidebar-item" data-articulo="6">
+                            <span class="sidebar-number">6</span>
+                            <span class="sidebar-text">Salud Pública</span>
+                        </div>
+                        <div class="sidebar-item" data-articulo="7">
+                            <span class="sidebar-number">7</span>
+                            <span class="sidebar-text">Adm. Pública</span>
+                        </div>
+                        <div class="sidebar-item" data-articulo="8">
+                            <span class="sidebar-number">8</span>
+                            <span class="sidebar-text">Federales</span>
+                        </div>
+                    </div>
+                    <div class="codigo-penal-content">
+                        <div class="codigo-penal-cards" id="codigoPenalCards">
+                            <!-- Cargos se cargarán dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ByC Management Modal -->
+        <div class="form-modal" id="bycManagementModal">
+            <div class="form-container" style="max-width: 1200px; max-height: 80vh;">
+                <div class="form-header">
+                    <h2>Gestión de ByC</h2>
+                    <button class="close-btn" id="closeBycManagementModal">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                </div>
+                <div class="byc-management-layout">
+                    <div class="byc-management-sidebar">
+                        <div class="sidebar-item active" data-estado="activos">
+                            <span class="sidebar-number">🟢</span>
+                            <span class="sidebar-text">ByC Activos</span>
+                            <span class="sidebar-count" id="activosCount">0</span>
+                        </div>
+                        <div class="sidebar-item" data-estado="inactivos">
+                            <span class="sidebar-number">🔴</span>
+                            <span class="sidebar-text">ByC Inactivos</span>
+                            <span class="sidebar-count" id="inactivosCount">0</span>
+                        </div>
+                        <div class="sidebar-item" data-estado="estadisticas">
+                            <span class="sidebar-number">📊</span>
+                            <span class="sidebar-text">Estadísticas</span>
+                        </div>
+                    </div>
+                    <div class="byc-management-content">
+                        <div class="byc-management-cards" id="bycManagementCards">
+                            <!-- Content will be loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Search Modal -->
+        <div class="search-modal" id="searchModal">
+            <div class="search-modal-container">
+                <div class="search-modal-header">
+                    <h2>Busca una ficha gubernamental</h2>
+                    <button class="close-btn" id="closeSearchModal">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                </div>
+                <div class="search-modal-content">
+                    <p class="search-instructions">Busca una ficha gubernamental eligiendo cualquiera de las <strong>3 opciones de búsqueda</strong></p>
+                    <div class="search-form">
+                        <div class="search-field autocomplete-wrapper">
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" id="searchNombre" name="nombre" placeholder="Nombre" autocomplete="off">
+                            <div class="autocomplete-dropdown" id="nombreDropdown"></div>
+                        </div>
+                        <div class="search-field autocomplete-wrapper">
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" id="searchApellido" name="apellido" placeholder="Apellido" autocomplete="off">
+                            <div class="autocomplete-dropdown" id="apellidoDropdown"></div>
+                        </div>
+                        <div class="search-field autocomplete-wrapper">
+                            <i class="fa-solid fa-id-card"></i>
+                            <input type="text" id="searchIdentificacion" name="identificacion" placeholder="Identificación" autocomplete="off">
+                            <div class="autocomplete-dropdown" id="identificacionDropdown"></div>
+                        </div>
+                    </div>
+                    <div id="searchResults" class="search-results-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile View Modal -->
+        <div class="profile-modal" id="profileModal">
+            <div class="profile-container-new">
+                <button class="close-btn profile-close" id="closeProfileModal">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+                
+                <!-- Left Sidebar -->
+                <div class="profile-sidebar">
+                    <div class="profile-logo">
+                        <img id="profileImage" src="" alt="Profile" class="profile-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" style="display: none;">
+                        <div class="profile-image-frame" id="profileImageFrame" style="display: block;">
+                            <iframe id="profileImageIframe" src="" frameborder="0" scrolling="no" width="100%" height="100%"></iframe>
+                            <div class="frame-placeholder" id="framePlaceholder">
+                                <i class="fa-solid fa-image"></i>
+                                <span>Imagen de perfil</span>
+                            </div>
+                        </div>
+                        <button class="edit-profile-image-btn" id="editProfileImageBtn" title="Editar imagen de perfil">
+                            <i class="fa-solid fa-camera"></i>
+                        </button>
+                    </div>
+                    <h2 class="profile-name-sidebar" id="profileFullNameSidebar">Luna Cavendishh</h2>
+                    <p class="profile-mujad" id="profileMUJADSidebar">#MUJAD</p>
+                </div>
+
+                <!-- Main Content -->
+                <div class="profile-main">
+                    <!-- Info Personal Section -->
+                    <div class="info-personal-section">
+                        <div class="section-header-orange">
+                            <h3>Información personal</h3>
+                        </div>
+                        <div class="info-grid-new">
+                            <div class="info-row">
+                                <span class="info-label-new">Identificación</span>
+                                <span class="info-value-new" id="profileIdentificacion">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label-new">ID de Ficha</span>
+                                <span class="info-value-new" id="profileMUJADValue">0</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label-new">Teléfono</span>
+                                <span class="info-value-new" id="profileTelefono">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label-new">Género</span>
+                                <span class="info-value-new" id="profileGenero">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label-new">Residencia</span>
+                                <span class="info-value-new" id="profileResidencia">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label-new">Edad</span>
+                                <span class="info-value-new" id="profileEdad">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label-new">Raza</span>
+                                <span class="info-value-new" id="profileRaza">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats Section -->
+                    <div class="stats-section-new">
+                        <div class="stat-box">
+                            <span class="stat-label-new">ByC Activos</span>
+                            <span class="stat-value-new" id="profileByCActivos">0</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label-new">BOLO Relacionados</span>
+                            <span class="stat-value-new" id="profileBOLO">0</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label-new">Nº de arrestos</span>
+                            <span class="stat-value-new" id="profileArrestos">3</span>
+                        </div>
+                    </div>
+
+                    <!-- Tabs -->
+                    <div class="profile-tabs-new">
+                        <button class="tab-btn-new active" data-tab="arrestos">Arrestos</button>
+                        <button class="tab-btn-new" data-tab="byc">ByC</button>
+                        <button class="tab-btn-new" data-tab="anotaciones">Anotaciones</button>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div class="profile-tab-content-new">
+                        <div id="arrestosTab" class="tab-content-new active">
+                            <div class="tab-header">
+                                <h4>Historial de arrestos</h4>
+                                <button class="add-btn" id="addArrestoBtn" title="Crear nuevo reporte de arresto">
+                                    <i class="fa-solid fa-plus"></i>
+                                    Nuevo arresto
+                                </button>
+                            </div>
+                            <div class="arrestos-grid" id="arrestosGrid">
+                                <!-- Arrestos se cargarán dinámicamente -->
+                            </div>
+                        </div>
+                        <div id="bycTab" class="tab-content-new">
+                            <div class="tab-header">
+                                <h4>ByC Activos</h4>
+                                <button class="add-btn" id="addByCBtn" title="Crear nuevo ByC">
+                                    <i class="fa-solid fa-plus"></i>
+                                    Nuevo ByC
+                                </button>
+                            </div>
+                            <div class="byc-grid" id="bycGrid">
+                                <!-- ByC se cargarán dinámicamente -->
+                            </div>
+                        </div>
+                        <div id="anotacionesTab" class="tab-content-new">
+                            <div class="tab-header">
+                                <h4>Anotaciones</h4>
+                                <button class="add-btn" id="addAnotacionBtn" title="Crear nueva anotación">
+                                    <i class="fa-solid fa-plus"></i>
+                                    Nueva anotación
+                                </button>
+                            </div>
+                            <div class="anotaciones-grid" id="anotacionesGrid">
+                                <!-- Anotaciones se cargarán dinámicamente -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Notifications Panel -->
+        <div class="notifications-panel" id="notificationsPanel">
+            <div class="notifications-header">
+                <h3>Notificaciones</h3>
+                <button class="close-btn" id="closeNotifications">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+            <div class="notifications-content">
+                <!-- Las notificaciones se agregarán dinámicamente aquí -->
+            </div>
+        </div>
+        
+        <!-- Bottom Toolbar -->
+        <div class="toolbar">
+            <div class="toolbar-left">
+                <button class="toolbar-btn" title="Inicio">
+                    <i class="bi bi-windows"></i>
+                </button>
+                <button class="toolbar-btn" title="Crear ficha">
+                    <i class="bi bi-file-earmark-plus"></i>
+                </button>
+                <button class="toolbar-btn" title="Buscar ficha">
+                    <i class="fa-regular fa-file-lines"></i>
+                </button>
+                <button class="toolbar-btn" title="Crear reporte de arresto">
+                    <i class="fa-solid fa-handcuffs"></i>
+                </button>
+                <button class="toolbar-btn" title="Código Penal">
+                    <i class="bi bi-book"></i>
+                </button>
+                <button class="toolbar-btn" title="Crear ByC">
+                    <i class="bi bi-person-check"></i>
+                </button>
+                <button class="toolbar-btn" title="Crear BOLO">
+                    <i class="fa-solid fa-bullhorn"></i>
+                </button>
+                <button class="toolbar-btn" title="Buscar">
+                    <i class="bi bi-search"></i>
+                </button>
+                <button class="toolbar-btn" title="Zoom">
+                    <i class="bi bi-zoom-in"></i>
+                </button>
+            </div>
+            
+            <div class="toolbar-right">
+                <button class="toolbar-btn" title="Notificaciones">
+                    <i class="bi bi-bell"></i>
+                </button>
+                <div class="datetime">
+                    <span class="date">06/10/2025</span>
+                    <span class="time">04:14</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+<!-- 
+
+                                                                    :=:                  
+                                                                 :*+=-+*                  
+                                                                -@-                       
+                                                                %@                        
+                                                                @%                        
+                                                               .@*              .         
+                         .:-==++++==:.                         :@*        :**++@@:        
+                  .-+++++--::.::--+*%@@*:                 .:---+@#***+=-+%#=-:-@%         
+              .=**=:     #@          .=@@+     .:-------=-:.=*##@#:.   .@*    #@-         
+           :+%*-         @@            -@@+==--:.  -*++#@@  :. :@=     #@.   :@@:         
+         -%@+            @@    .:-=---:.*@.      =%=   #@#     -@=    .@#    *@@:         
+        =@%             .@%-===-.      .@=      :@+    @@.     -@- .:-*@*===**%@:   .     
+        %@-         .-=-=@%           -%-       %@    -@@     .+@+--:.+@.  -+ %@+-.=      
+        -@*.   .-==-:   :@*        .=#=        :@+    #@@  -==:+@:    +@. =+  *@%*+       
+          +%**+:        -@=    .-+*+:          +@.   +-@@=-..  +@:    =@##=    =-         
+       :==:. .-:       =+@=-+++=:              #@   +--@@. .=  *@.     ++.                
+    :+=.               *@@#:.                  %%  ++:=@@*=-   #@.                        
+  :=:                   %%%%+:               ::#@=*= + =*=.    %@                         
+ =:                    .@= .+%%+:             #-#*:  =         @#                         
+ -                     -@.    .=%@#=.         =-      -*      -@-                         
+                       #*         -+%@*=:     =:       #%=-: .%=                          
+     ..               :@.            .-+#%%%#*-        .#@++#+=---::..              ..:-=.
+     .%               %+                                  ..       .::--===========--:.   
+      +%.            **                                                                   
+       +@+          *+                                                                    
+        .*@*=:   .=#-                                                                     
+           :=*#%#*-    
+           
+           
+                       -->
