@@ -15,8 +15,9 @@ const corsOptions = {
     if (!origin) return callback(null, true);
 
     const allowedOrigins = [
-      'https://mdc-usmarshals-test-git-main-ferlokos-projects.vercel.app/',
+      'https://mdc-usmarshals-test-git-main-ferlokos-projects.vercel.app',
       'https://mdc-usmarshals-test.vercel.app',
+      'https://mdc-usmarshals-test-r5hgkcnki-ferlokos-projects.vercel.app',
       'http://localhost:3000',
       'http://localhost:3001',
       'http://localhost:5173',
