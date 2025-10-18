@@ -18,6 +18,7 @@ const corsOptions = {
       'https://mdc-usmarshals-test-git-main-ferlokos-projects.vercel.app',
       'https://mdc-usmarshals-test.vercel.app',
       'https://mdc-usmarshals-test-r5hgkcnki-ferlokos-projects.vercel.app',
+      'https://mdc-usmarshals-test-q5jzmill2-ferlokos-projects.vercel.app',
       'http://localhost:3000',
       'http://localhost:3001',
       'http://localhost:5173',
@@ -26,7 +27,14 @@ const corsOptions = {
       'http://127.0.0.1:5173',
     ];
 
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+    // Permitir todos los subdominios de Vercel para este proyecto
+    const isVercelDomain = origin && (
+      origin.includes('mdc-usmarshals-test') && 
+      origin.includes('vercel.app')
+    );
+
+    if (allowedOrigins.indexOf(origin) !== -1 || isVercelDomain || !origin) {
+      console.log('✅ Origen permitido por CORS:', origin);
       callback(null, true);
     } else {
       console.log('🚫 Origen bloqueado por CORS:', origin);
