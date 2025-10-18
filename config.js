@@ -1,7 +1,7 @@
 // Configuración de la aplicación
 const config = {
     // Cambia esto cuando despliegues en producción
-    environment: 'development', // 'development' o 'production'
+    environment: 'production', // 'development' o 'production'
     
     // URLs del API
     api: {
