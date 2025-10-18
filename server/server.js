@@ -11,8 +11,13 @@ const PORT = process.env.PORT || 3001;
 // Middleware
 const corsOptions = {
   origin: function (origin, callback) {
+    console.log('🔍 Origen de la petición:', origin);
+    
     // Permitir todas las solicitudes durante el desarrollo
-    if (!origin) return callback(null, true);
+    if (!origin) {
+      console.log('✅ Permitiendo petición sin origen (desarrollo)');
+      return callback(null, true);
+    }
 
     const allowedOrigins = [
       'https://mdc-usmarshals-test-git-main-ferlokos-projects.vercel.app',
@@ -33,7 +38,10 @@ const corsOptions = {
       origin.includes('vercel.app')
     );
 
-    if (allowedOrigins.indexOf(origin) !== -1 || isVercelDomain || !origin) {
+    // Permitir todos los dominios de Vercel temporalmente para debug
+    const isAnyVercelDomain = origin && origin.includes('vercel.app');
+
+    if (allowedOrigins.indexOf(origin) !== -1 || isVercelDomain || isAnyVercelDomain || !origin) {
       console.log('✅ Origen permitido por CORS:', origin);
       callback(null, true);
     } else {
@@ -42,12 +50,24 @@ const corsOptions = {
     }
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
   credentials: true,
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
+  preflightContinue: false
 };
 
 app.use(cors(corsOptions));
+
+// Middleware adicional para manejar preflight requests
+app.options('*', (req, res) => {
+  console.log('🔄 Petición OPTIONS (preflight) recibida desde:', req.headers.origin);
+  res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, Origin');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.sendStatus(200);
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
