@@ -1,19 +1,26 @@
 // Configuración de la aplicación
-const config = {
-    // Cambia esto cuando despliegues en producción
-    environment: 'production', // 'development' o 'production'
-    
+(function(){
+  const isLocal = typeof location !== 'undefined' && (
+    location.hostname === 'localhost' || location.hostname === '127.0.0.1'
+  )
+
+  const config = {
+    // Detección automática del entorno
+    environment: isLocal ? 'development' : 'production',
+
     // URLs del API
     api: {
-        development: 'http://localhost:3000/api',
-        production: 'https://mdc-usmarshals-production-api.com/api' // <--- New Production API URL // Cambia esto cuando despliegues
+      development: 'http://localhost:3000/api',
+      // En producción usa la misma ruta del dominio desplegado
+      production: '/api'
     },
-    
+
     // Obtener URL actual según el ambiente
     getApiUrl() {
-        return this.api[this.environment];
+      return this.api[this.environment]
     }
-};
+  }
 
-// Exportar configuración
-window.CONFIG = config;
+  // Exportar configuración global
+  window.CONFIG = config
+})()

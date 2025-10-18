@@ -1,15 +1,21 @@
 // Vercel Serverless Function adapter that mounts the Express API
 // from server/server.js so all /api routes are handled locally.
-// This wrapper mounts the app on both root and /api to handle either
-// Vercel path forwarding style.
+// This normalizes the incoming path to ensure '/api' prefix exists,
+// matching the routes defined in server/server.js.
 
-const express = require('express')
 const apiApp = require('../server/server.js')
 
-// Create a wrapper app that mounts the exported Express app under both
-// root and '/api'. This avoids 404/405 if the path is trimmed or includes '/api'.
-const wrapper = express()
-wrapper.use(apiApp)       // handles '/api/*' as defined in server/server.js
-wrapper.use('/api', apiApp) // handles if Vercel trims the '/api' prefix
-
-module.exports = wrapper
+module.exports = (req, res) => {
+  try {
+    // If the incoming URL doesn't start with '/api', prefix it so Express
+    // routes like '/api/fichas' match regardless of how Vercel forwarded it.
+    if (req.url && !req.url.startsWith('/api')) {
+      req.url = req.url.startsWith('/') ? `/api${req.url}` : `/api/${req.url}`
+    }
+    return apiApp(req, res)
+  } catch (err) {
+    res.statusCode = 500
+    res.setHeader('Content-Type', 'application/json')
+    res.end(JSON.stringify({ success: false, message: 'API adapter error', error: String(err && err.message || err) }))
+  }
+}
