@@ -8,6 +8,24 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// CORS hardening: ensure headers on all responses, including errors and preflight
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Vary', 'Origin');
+  } else {
+    res.header('Access-Control-Allow-Origin', '*');
+  }
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, Origin');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
 // Middleware
 const corsOptions = {
   origin: function (origin, callback) {
@@ -1906,8 +1924,12 @@ app.get('/api/health', (req, res) => {
 
 //
 
-// Iniciar servidor
-app.listen(PORT, () => {
-    console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
-    console.log(`📊 Base de datos: ${MONGODB_URI}`);
-});
+// Iniciar servidor o exportar para serverless
+if (process.env.VERCEL) {
+    module.exports = app;
+} else {
+    app.listen(PORT, () => {
+        console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+        console.log(`📊 Base de datos: ${MONGODB_URI}`);
+    });
+}
