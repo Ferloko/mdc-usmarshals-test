@@ -6,7 +6,7 @@ const config = {
     // URLs del API
     api: {
         development: 'http://localhost:3000/api',
-        production: 'https://tu-backend.onrender.com/api' // Cambia esto cuando despliegues
+        production: 'https://mdc-usmarshals-production-api.com/api' // <--- New Production API URL // Cambia esto cuando despliegues
     },
     
     // Obtener URL actual según el ambiente
