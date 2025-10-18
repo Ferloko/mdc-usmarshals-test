@@ -15,8 +15,7 @@ const corsOptions = {
     if (!origin) return callback(null, true);
 
     const allowedOrigins = [
-      'https://mdc-usmarshals-test-h6v8ticev-ferlokos-projects.vercel.app',
-      'https://mdc-usmarshals-test-94pmq13pd-ferlokos-projects.vercel.app',
+      'https://mdc-usmarshals-test-git-main-ferlokos-projects.vercel.app/',
       'https://mdc-usmarshals-test.vercel.app',
       'http://localhost:3000',
       'http://localhost:3001',
@@ -24,7 +23,6 @@ const corsOptions = {
       'http://localhost:8080',
       'http://127.0.0.1:3000',
       'http://127.0.0.1:5173',
-      'https://tu-backend.onrender.com'
     ];
 
     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
