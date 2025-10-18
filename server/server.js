@@ -6,20 +6,38 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 // Middleware
 const corsOptions = {
-  origin: [
-    'https://mdc-usmarshals-test-h6v8ticev-ferlokos-projects.vercel.app',
-    'https://mdc-usmarshals-test-dwcnbgkoy-ferlokos-projects.vercel.app',
-    'http://localhost:3000',
-    'http://localhost:3001',
-    'https://tu-backend.onrender.com' // Temporal para compatibilidad
-  ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
+  origin: function (origin, callback) {
+    // Permitir todas las solicitudes durante el desarrollo
+    if (!origin) return callback(null, true);
+
+    const allowedOrigins = [
+      'https://mdc-usmarshals-test-h6v8ticev-ferlokos-projects.vercel.app',
+      'https://mdc-usmarshals-test-94pmq13pd-ferlokos-projects.vercel.app',
+      'https://mdc-usmarshals-test.vercel.app',
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'http://localhost:5173',
+      'http://localhost:8080',
+      'http://127.0.0.1:3000',
+      'http://127.0.0.1:5173',
+      'https://tu-backend.onrender.com'
+    ];
+
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      console.log('🚫 Origen bloqueado por CORS:', origin);
+      callback(new Error('No permitido por CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  credentials: true,
+  optionsSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
