@@ -503,6 +503,27 @@ const Anotacion = mongoose.model('Anotacion', anotacionSchema);
 
 // Rutas API
 
+// Test endpoint
+app.get('/api/test', (req, res) => {
+    res.json({
+        success: true,
+        message: 'API is working correctly',
+        timestamp: new Date().toISOString(),
+        method: req.method,
+        url: req.url
+    });
+});
+
+// Health check endpoint
+app.all('/api/health', (req, res) => {
+    res.json({
+        success: true,
+        message: 'Server is healthy',
+        method: req.method,
+        timestamp: new Date().toISOString()
+    });
+});
+
 // Crear nueva ficha
 app.post('/api/fichas', async (req, res) => {
     try {
@@ -1637,8 +1658,6 @@ app.get('/api/debug/byc', async (req, res) => {
         });
     }
 });
-
-
 
 // ==================== RUTAS PARA ANOTACIONES ====================
 
